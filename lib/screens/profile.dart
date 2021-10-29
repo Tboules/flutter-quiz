@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:quizapp/services/authentication.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -8,8 +6,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? user = Provider.of<User?>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('profile...'),

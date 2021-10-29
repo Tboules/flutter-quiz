@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -48,7 +46,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           StreamProvider<User?>.value(
-            initialData: AuthService().getUser,
+            initialData: AuthService().currentUser,
             value: AuthService().user,
           ),
         ],
@@ -69,13 +67,14 @@ class MyApp extends StatelessWidget {
             ),
             brightness: Brightness.dark,
             textTheme: const TextTheme(
-              bodyText1: TextStyle(fontSize: 18),
-              bodyText2: TextStyle(fontSize: 16),
+              bodyText1: TextStyle(fontSize: 18, color: Colors.white),
+              bodyText2: TextStyle(fontSize: 16, color: Colors.white),
               button: TextStyle(
                 letterSpacing: 1.5,
                 fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
-              headline1: TextStyle(fontWeight: FontWeight.bold),
+              headline4: TextStyle(fontWeight: FontWeight.bold),
               subtitle1: TextStyle(color: Colors.grey),
             ),
           ),

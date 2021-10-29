@@ -6,14 +6,9 @@ import 'dart:async';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _db = FirebaseFirestore.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-    scopes: [
-      'email',
-      'https://www.googleapis.com/auth/contacts.readonly',
-    ],
-  );
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  User? get getUser => _auth.currentUser;
+  User? get currentUser => _auth.currentUser;
 
   Stream<User?> get user => _auth.authStateChanges();
 
