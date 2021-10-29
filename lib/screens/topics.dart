@@ -5,6 +5,15 @@ class TopicsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('about'),
+        backgroundColor: Colors.purple,
+      ),
+      body: const Center(
+        child: Text('Topics...'),
+      ),
+    );
+    ;
   }
 }

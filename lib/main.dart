@@ -3,10 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'package:quizapp/services/authentication.dart';
 import 'dart:async';
 import './screens/screens.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() {
   runApp(App());
@@ -42,33 +45,40 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: FirebaseAnalytics())
-      ],
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/topics': (context) => TopicsScreen(),
-        '/profile': (context) => ProfileScreen(),
-        '/about': (context) => AboutScreen(),
-      },
-      theme: ThemeData(
-        fontFamily: 'Nunito',
-        bottomAppBarTheme: const BottomAppBarTheme(
-          color: Colors.black87,
-        ),
-        brightness: Brightness.dark,
-        textTheme: const TextTheme(
-          bodyText1: TextStyle(fontSize: 18),
-          bodyText2: TextStyle(fontSize: 16),
-          button: TextStyle(
-            letterSpacing: 1.5,
-            fontWeight: FontWeight.bold,
+    return MultiProvider(
+        providers: [
+          StreamProvider<User?>.value(
+            initialData: AuthService().getUser,
+            value: AuthService().user,
           ),
-          headline1: TextStyle(fontWeight: FontWeight.bold),
-          subtitle1: TextStyle(color: Colors.grey),
-        ),
-      ),
-    );
+        ],
+        child: MaterialApp(
+          navigatorObservers: [
+            FirebaseAnalyticsObserver(analytics: FirebaseAnalytics())
+          ],
+          routes: {
+            '/': (context) => LoginScreen(),
+            '/topics': (context) => TopicsScreen(),
+            '/profile': (context) => ProfileScreen(),
+            '/about': (context) => AboutScreen(),
+          },
+          theme: ThemeData(
+            fontFamily: 'Nunito',
+            bottomAppBarTheme: const BottomAppBarTheme(
+              color: Colors.black87,
+            ),
+            brightness: Brightness.dark,
+            textTheme: const TextTheme(
+              bodyText1: TextStyle(fontSize: 18),
+              bodyText2: TextStyle(fontSize: 16),
+              button: TextStyle(
+                letterSpacing: 1.5,
+                fontWeight: FontWeight.bold,
+              ),
+              headline1: TextStyle(fontWeight: FontWeight.bold),
+              subtitle1: TextStyle(color: Colors.grey),
+            ),
+          ),
+        ));
   }
 }
